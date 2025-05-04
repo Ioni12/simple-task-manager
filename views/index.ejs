@@ -1,0 +1,31 @@
+
+
+<div class="task-form">
+  <form action="/tasks" method="POST">
+    <input type="text" name="title" placeholder="add a new task .." />
+    <button type="submit">add task</button>
+  </form>
+</div>
+
+<div class="task-list"><% if (tasks.length > 0) { %>
+    <ul>
+        <% tasks.forEach(task => { %>
+         <li class="<%= task.completed ? "completed" : ""  %>" >
+            <span><%= task.title %></span>
+            <div class="actions">
+                <form action="/tasks/<%= task._id %>?_method=PATCH" method="POST">
+                    <button type="submit" class="toggle-btn">
+                        <%= task.completed ? "undo" : "complete" %>
+                    </button>
+                </form>
+
+                <form action="/tasks/<%= task._id %>?_method=DELETE" method="POST">
+                    <button type="submit" class="delete-btn">delete</button>
+                </form>
+            </div>
+         </li>
+        <% }) %>
+    </ul>
+     <% } else { %>
+        <p>No tasks found. Add a task to get started!</p>
+      <% } %></div>
